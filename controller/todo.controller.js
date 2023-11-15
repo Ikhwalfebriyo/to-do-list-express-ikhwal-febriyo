@@ -42,7 +42,7 @@ module.exports = {
         const id = req.params.id
 
         try{
-            const todos = await Todo.findByIdAndDelete(id);
+            const todos = await Todo.findByIdAndDelete(id).populate("userID", ["_id", "name"]);;
             res.json({
                 message: "berhasil menghapus data by id",
                 data: todos
@@ -58,7 +58,7 @@ module.exports = {
         const id = req.params.id
 
         try{
-            const todos = await Todo.deleteMany(id)
+            const todos = await Todo.deleteMany(id).populate("userID", ["_id", "name"]);
             res.json({
                 message: "berhasil menghapus semua data todo",
                 data: todos
@@ -75,7 +75,7 @@ module.exports = {
             const id = req.params.id
             const update = req.body
             const option = {new : true}
-            const todos = await Todo.findByIdAndUpdate(id, update, option)
+            const todos = await Todo.findByIdAndUpdate(id, update, option).populate("userID", ["_id", "name"]);
             res.json({
                 message: "berhasil update data",
                 data: todos
